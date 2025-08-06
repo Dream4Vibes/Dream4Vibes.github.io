@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моё портфолио</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <!-- Шапка сайта -->
+    <header>
+        <h1>Привет, я Третьяков Кирилл</h1>
+        <p>Студент колледжа, занимаюсь разработкой программного обеспечения</p>
+        <button id="theme-toggle">Сменить тему</button>
+    </header>
+
+    <!-- Основное содержимое -->
+    <main>
+
+        <!-- Обо мне -->
+        <section>
+            <h2>Обо мне</h2>
+            <p>
+                Меня зовут <strong>Третьяков Кирилл</strong>, я учусь в ФГБОУ Колледж Росрезерва на специальности 09.02.07 «ИНФОРМАЦИОННЫЕ СИСТЕМЫ И ПРОГРАММИРОВАНИЕ».
+                Интересуюсь программированием, веб-разработкой и созданием полезных программ.
+            </p>
+            <p>
+                В свободное время пишу небольшие приложения и изучаю новые технологии.
+                Моя цель — стать профессиональным разработчиком.
+            </p>
+        </section>
+
+        <!-- Моё ПО -->
+        <section>
+            <h2>Моё программное обеспечение</h2>
+            <p>Ниже ты можешь скачать мои проекты:</p>
+
+            <ul>
+                <li>
+                    <strong>Программа 1: ---</strong><br>
+                    Простой калькулятор с базовыми функциями.<br>
+                    <a href="downloads/calculator.zip" download>Скачать (ZIP)</a>
+                </li>
+
+                <li>
+                    <strong>Программа 2: ---</strong><br>
+                    Приложение для быстрого создания и сохранения заметок.<br>
+                    <a href="downloads/notes_app.zip" download>Скачать (ZIP)</a>
+                </li>
+
+                <li>
+                    <strong>Программа 3: ---</strong><br>
+                    Описание твоей программы.<br>
+                    <a href="downloads/your_app.zip" download>Скачать (ZIP)</a>
+                </li>
+            </ul>
+
+            <p><em>Все программы протестированы и безопасны. Исходный код доступен по запросу.</em></p>
+        </section>
+
+        <!-- Контакты -->
+        <section>
+            <h2>Контакты</h2>
+            <p>
+                Связаться со мной можно по электронной почте:<br>
+                <a href="mailto:kiril1-07@yandex.ru">kiril1-07@yandex.ru</a>
+            </p>
+            <p>
+                Также можно найти меня:<br>
+                ВКонтакте: <a href="https://vk.com/id697297740" target="_blank">Третьяков Кирилл</a><br>
+                Telegram: <a href="https://t.me/Dream4Vibes" target="_blank">@Dream4Vibes</a>
+            </p>
+        </section>
+
+    </main>
+
+    <!-- Подвал -->
+    <footer>
+        <p>&copy; 2025 Третьяков Кирилл. Все права защищены.</p>
+    </footer>
+    <script>
+        // Находим кнопку
+        const themeToggle = document.getElementById('theme-toggle');
+        
+        // Проверяем, запомнинали ли тему
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-theme');
+        }
+    
+        // При клике — переключаем тему и сохраняем
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+    
+            if (document.body.classList.contains('dark-theme')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    </script>
+</body>
+</html>
