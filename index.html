@@ -3,101 +3,2153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Моё портфолио</title>
-    <link rel="stylesheet" href="index.css">
+    <meta name="description" content="Практическое руководство по разработке системы складского учёта LogistPro на C# и WPF. Полная документация с примерами кода.">
+    <meta name="keywords" content="C#, WPF, складской учёт, LogistPro, документация, руководство разработчика">
+    <meta name="author" content="LogistPro Documentation Team">
+    <title>LogistPro — Руководство по разработке системы складского учёта</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Highlight.js для подсветки синтаксиса -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
 </head>
 <body>
 
-    <!-- Шапка сайта -->
-    <header>
-        <h1>Привет, я Кирилл Третьяков</h1>
-        <p>Студент колледжа, занимаюсь разработкой программного обеспечения</p>
-        <button id="theme-toggle">Сменить тему</button>
-    </header>
+<!-- ====== HEADER ====== -->
+<header class="site-header">
+    <button class="menu-toggle" id="menuToggle" aria-label="Меню">&#9776;</button>
+    <div class="logo">
+        <span class="logo-icon">&#9650;</span>
+        <span>LogistPro Docs</span>
+    </div>
+    <nav class="header-nav">
+        <a href="#intro">Руководство</a>
+        <a href="#architecture">Архитектура</a>
+        <a href="#models">Модели</a>
+        <a href="#services">Сервисы</a>
+        <a href="#windows">Интерфейс</a>
+        <a href="#app">Приложение</a>
+    </nav>
+    <div class="header-right">
+        <div class="search-box">
+            <span class="search-icon">&#128269;</span>
+            <input type="text" placeholder="Поиск по документации..." id="searchInput">
+        </div>
+    </div>
+</header>
 
-    <!-- Основное содержимое -->
-    <main>
+<!-- ====== SIDEBAR OVERLAY (mobile) ====== -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-        <!-- Обо мне -->
-        <section>
-            <h2>Обо мне</h2>
+<!-- ====== LAYOUT ====== -->
+<div class="page-layout">
+
+<!-- ====== SIDEBAR ====== -->
+<aside class="sidebar" id="sidebar">
+    <div class="nav-section">
+        <div class="nav-section-title">Начало работы</div>
+        <a href="#intro" class="nav-link active"><span class="nav-icon">&#9733;</span> Введение</a>
+        <a href="#architecture" class="nav-link"><span class="nav-icon">&#9881;</span> Архитектура проекта</a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Models — Модели данных</div>
+        <a href="#operation-cs" class="nav-link"><span class="nav-icon">&#128196;</span> Operation.cs <span class="file-badge">.cs</span></a>
+        <a href="#product-cs" class="nav-link"><span class="nav-icon">&#128196;</span> Product.cs <span class="file-badge">.cs</span></a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Services — Сервисный слой</div>
+        <a href="#ifileservice-cs" class="nav-link"><span class="nav-icon">&#128196;</span> IFileService.cs <span class="file-badge">interface</span></a>
+        <a href="#fileservice-cs" class="nav-link"><span class="nav-icon">&#128196;</span> FileService.cs <span class="file-badge">.cs</span></a>
+        <a href="#warehouseservice-cs" class="nav-link"><span class="nav-icon">&#128196;</span> WarehouseService.cs <span class="file-badge">.cs</span></a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Windows — Пользовательский интерфейс</div>
+        <a href="#mainwindow-xaml" class="nav-link"><span class="nav-icon">&#128424;</span> MainWindow.xaml <span class="file-badge">.xaml</span></a>
+        <a href="#mainwindow-cs" class="nav-link"><span class="nav-icon">&#128196;</span> MainWindow.xaml.cs <span class="file-badge">.cs</span></a>
+        <a href="#stockcontent-xaml" class="nav-link"><span class="nav-icon">&#128424;</span> StockContent.xaml <span class="file-badge">.xaml</span></a>
+        <a href="#stockcontent-cs" class="nav-link"><span class="nav-icon">&#128196;</span> StockContent.xaml.cs <span class="file-badge">.cs</span></a>
+        <a href="#journalcontent-xaml" class="nav-link"><span class="nav-icon">&#128424;</span> JournalContent.xaml <span class="file-badge">.xaml</span></a>
+        <a href="#journalcontent-cs" class="nav-link"><span class="nav-icon">&#128196;</span> JournalContent.xaml.cs <span class="file-badge">.cs</span></a>
+        <a href="#analyticscontent-xaml" class="nav-link"><span class="nav-icon">&#128424;</span> AnalyticsContent.xaml <span class="file-badge">.xaml</span></a>
+        <a href="#analyticscontent-cs" class="nav-link"><span class="nav-icon">&#128196;</span> AnalyticsContent.xaml.cs <span class="file-badge">.cs</span></a>
+        <a href="#operationdialog-xaml" class="nav-link"><span class="nav-icon">&#128424;</span> OperationDialog.xaml <span class="file-badge">.xaml</span></a>
+        <a href="#operationdialog-cs" class="nav-link"><span class="nav-icon">&#128196;</span> OperationDialog.xaml.cs <span class="file-badge">.cs</span></a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Приложение</div>
+        <a href="#app-xaml" class="nav-link"><span class="nav-icon">&#128424;</span> App.xaml <span class="file-badge">.xaml</span></a>
+        <a href="#app-cs" class="nav-link"><span class="nav-icon">&#128196;</span> App.xaml.cs <span class="file-badge">.cs</span></a>
+    </div>
+</aside>
+
+<!-- ====== MAIN CONTENT ====== -->
+<main class="main-content">
+
+    <div class="breadcrumb">
+        <a href="#">LogistPro</a>
+        <span>/</span>
+        <span>Документация</span>
+    </div>
+
+    <!-- ========== ВВЕДЕНИЕ ========== -->
+    <article>
+        <div class="article-header" id="intro">
+            <h1>Руководство по разработке системы складского учёта LogistPro</h1>
+            <p class="subtitle">
+                Практическое пособие по созданию десктопного приложения для управления складскими операциями
+                с использованием технологий C#, WPF и XML-сериализации. Полное описание архитектуры,
+                моделей данных, сервисного слоя и пользовательского интерфейса.
+            </p>
+            <div class="meta">
+                <span class="tag">C#</span>
+                <span class="tag">WPF</span>
+                <span class="tag">.NET</span>
+                <span class="tag">XML</span>
+                <span>Обновлено: апрель 2026</span>
+            </div>
+        </div>
+
+        <div class="content-section">
             <p>
-                Меня зовут <strong>Кирилл</strong>, я учусь в ФГБОУ Колледж Росрезерва на специальности 09.02.07 «ИНФОРМАЦИОННЫЕ СИСТЕМЫ И ПРОГРАММИРОВАНИЕ».
-                Интересуюсь программированием, веб-разработкой и созданием полезных программ.
+                LogistPro представляет собой полнофункциональное приложение для учёта складских операций,
+                разработанное по паттерну трёхслойной архитектуры (Models — Services — Windows).
+                Приложение обеспечивает ведение журнала приходных и расходных операций, мониторинг
+                текущих остатков товаров, автоматический расчёт рекомендуемых объёмов пополнения запасов,
+                а также экспорт данных в формате XML.
             </p>
             <p>
-                В свободное время пишу небольшие приложения и изучаю новые технологии.
-                Моя цель — стать профессиональным разработчиком.
+                Данное руководство предназначено для разработчиков, изучающих принципы построения
+                десктопных приложений на платформе .NET с использованием WPF (Windows Presentation Foundation).
+                В нём подробно описан каждый компонент системы: модели данных, сервисный слой бизнес-логики,
+                интерфейсные элементы управления и конфигурация приложения.
             </p>
-        </section>
+            <div class="note">
+                <strong>Требования к среде разработки</strong>
+                Для сборки и запуска проекта требуется Visual Studio 2019 или более поздней версии
+                с установленной рабочей нагрузкой &laquo;Разработка классических приложений .NET&raquo;.
+                Целевая платформа — .NET 6.0+ или .NET Framework 4.7.2+.
+            </div>
+        </div>
 
-        <!-- Моё ПО -->
-        <section>
-            <h2>Моё программное обеспечение</h2>
-            <p>Ниже ты можешь скачать мои проекты:</p>
-
-            <ul>
-                <li>
-                    <strong>Программа 1: Видеоигра без игрового движка</strong><br>
-                    Простенькая игра написанная на языке с# и интерфейсом созданным с помощью winforms.<br>
-                    <a href="downloads/Видеоигра.zip" download>Скачать (ZIP)</a>
-                </li>
-
-                <li>
-                    <strong>Программа 2: ---</strong><br>
-                    Описание моей программы..<br>
-                    <a href="downloads/notes_app.zip" download>Скачать (ZIP)</a>
-                </li>
-
-                <li>
-                    <strong>Программа 3: ---</strong><br>
-                    Описание моей программы.<br>
-                    <a href="downloads/your_app.zip" download>Скачать (ZIP)</a>
-                </li>
-            </ul>
-
-            <p><em>Все программы протестированы и безопасны. Исходный код доступен по запросу.</em></p>
-        </section>
-
-        <!-- Контакты -->
-        <section>
-            <h2>Контакты</h2>
+        <!-- ========== АРХИТЕКТУРА ========== -->
+        <div class="content-section" id="architecture">
+            <h2>Архитектура проекта</h2>
             <p>
-                Связаться со мной можно по электронной почте:<br>
-                <a href="https://mail.yandex.ru/?compose=&to=kiril1-07@yandex.ru">kiril1-07@yandex.ru</a>
+                Проект LogistPro организован по принципу модульной трёхслойной архитектуры.
+                Каждая папка отвечает за отдельный аспект приложения: модели данных
+                хранятся в папке <code>Models</code>, бизнес-логика и работа с файлами — в
+                папке <code>Services</code>, а пользовательский интерфейс — в папке <code>Windows</code>.
+                Такой подход обеспечивает чёткое разделение ответственности между компонентами
+                и упрощает сопровождение кода.
             </p>
+
+            <div class="arch-diagram">
+                <div class="arch-title">Структура проекта LogistPro</div>
+                <div class="arch-boxes">
+                    <div class="arch-box primary-box">
+                        <div class="box-title">LogistPro</div>
+                        <div class="box-desc">Корневой проект</div>
+                    </div>
+                </div>
+                <div class="arch-arrow">&#8595; &#8595; &#8595;</div>
+                <div class="arch-boxes">
+                    <div class="arch-box">
+                        <div class="box-title">Models</div>
+                        <div class="box-desc">Модели данных</div>
+                    </div>
+                    <div class="arch-box">
+                        <div class="box-title">Services</div>
+                        <div class="box-desc">Бизнес-логика</div>
+                    </div>
+                    <div class="arch-box">
+                        <div class="box-title">Windows</div>
+                        <div class="box-desc">Интерфейс WPF</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Models — Слой моделей данных</h3>
             <p>
-                Также можно найти меня:<br>
-                ВКонтакте: <a href="https://vk.com/id697297740" target="_blank">Третьяков Кирилл</a><br>
-                Telegram: <a href="https://t.me/Dream4Vibes" target="_blank">@Dream4Vibes</a>
+                Папка <code>Models</code> содержит определения сущностей предметной области.
+                Класс <code>Product</code> описывает товар с указанием текущего остатка и
+                минимального порога для заказа. Класс <code>Operation</code> представляет запись
+                в журнале складских операций (приход или расход) с привязкой к конкретному товару,
+                количеством и датой проведения. Оба класса помечены атрибутами XML-сериализации,
+                что позволяет сохранять и загружать данные в формате XML-файлов.
             </p>
-        </section>
 
-    </main>
+            <h3>Services — Сервисный слой</h3>
+            <p>
+                Папка <code>Services</code> реализует бизнес-логику приложения через паттерн
+                &laquo;сервис&raquo;. Интерфейс <code>IFileService</code> определяет контракт для
+                операций чтения и записи данных. Класс <code>FileService</code> обеспечивает
+                реальную работу с XML-файлами на диске, включая обработку ошибок и создание
+                резервных копий повреждённых файлов. Центральный класс <code>WarehouseService</code>
+                координирует работу с товарами и операциями, реализуя ключевые алгоритмы:
+                пересчёт остатков по журналу, проверку достаточности товара перед списанием,
+                определение товаров с низким остатком и расчёт рекомендуемого объёма заказа.
+            </p>
 
-    <!-- Подвал -->
-    <footer>
-        <p>&copy; 2025 Третьяков Кирилл. Все права защищены.</p>
-    </footer>
-    <script>
-        // Находим кнопку
-        const themeToggle = document.getElementById('theme-toggle');
-        
-        // Проверяем, запомнинали ли тему
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark-theme');
-        }
-    
-        // При клике — переключаем тему и сохраняем
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-theme');
-    
-            if (document.body.classList.contains('dark-theme')) {
-                localStorage.setItem('theme', 'dark');
-            } else {
-                localStorage.setItem('theme', 'light');
+            <h3>Windows — Слой представления</h3>
+            <p>
+                Папка <code>Windows</code> содержит XAML-разметку и код-поддержку для всех
+                экранов приложения. Главным окном является <code>MainWindow</code>, обеспечивающий
+                навигацию между разделами через боковую панель. Разделы реализованы в виде
+                пользовательских элементов управления: <code>StockContent</code> для просмотра
+                остатков, <code>JournalContent</code> для работы с журналом операций,
+                <code>AnalyticsContent</code> для аналитики и формирования заказов, а
+                <code>OperationDialog</code> — модальное диалоговое окно для проведения
+                складской операции.
+            </p>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="card-icon">&#128230;</div>
+                    <div class="card-title">8 файлов исходного кода</div>
+                    <div class="card-text">Models (2) + Services (3) + Windows (10) + App (2)</div>
+                </div>
+                <div class="info-card">
+                    <div class="card-icon">&#128196;</div>
+                    <div class="card-title">XML-сериализация</div>
+                    <div class="card-text">Хранение данных в файлах products.xml и journal.xml</div>
+                </div>
+                <div class="info-card">
+                    <div class="card-icon">&#128187;</div>
+                    <div class="card-title">WPF + Material Design</div>
+                    <div class="card-text">Современный интерфейс с кастомными стилями</div>
+                </div>
+                <div class="info-card">
+                    <div class="card-icon">&#128202;</div>
+                    <div class="card-title">Аналитика</div>
+                    <div class="card-text">Расчёт рекомендуемых заказов и экспорт в XML</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- ======== MODELS ======== -->
+        <!-- ============================================ -->
+
+        <div class="content-section" id="models">
+            <h2>Models — Модели данных</h2>
+            <p>
+                Модели данных определяют структуру сущностей, с которыми работает приложение.
+                В LogistPro используется два основных класса моделей: <code>Product</code>
+                для представления товаров на складе и <code>Operation</code> для записи
+                складских операций. Оба класса annotated атрибутами XML-сериализации
+                из пространства имён <code>System.Xml.Serialization</code>, что обеспечивает
+                возможность прямого сохранения и восстановления данных из XML-файлов.
+            </p>
+        </div>
+
+        <!-- Operation.cs -->
+        <div class="content-section" id="operation-cs">
+            <h3>Operation.cs</h3>
+            <p>
+                Класс <code>Operation</code> описывает одну запись в журнале складских операций.
+                Каждая операция содержит уникальный идентификатор, ссылку на товар (через
+                <code>ProductId</code>), тип операции (&laquo;In&raquo; — приход или &laquo;Out&raquo; — расход),
+                количество единиц и дату проведения. Тип <code>DateTime</code> позволяет точно
+                отслеживать хронологию всех операций на складе.
+            </p>
+            <div class="code-file">
+                <div class="code-file-header">
+                    <div class="file-name">
+                        <span class="lang-dot csharp"></span>
+                        Models/Operation.cs
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)">Копировать</button>
+                </div>
+                <pre><code class="language-csharp">using System;
+using System.Xml.Serialization;
+
+namespace LogistPro.Models
+{
+    [XmlRoot("Operation")]
+    public class Operation
+    {
+        [XmlElement]
+        public int Id { get; set; }
+        [XmlElement]
+        public int ProductId { get; set; }
+        [XmlElement]
+        public string Type { get; set; } // "In" или "Out"
+        [XmlElement]
+        public int Amount { get; set; }
+        [XmlElement]
+        public DateTime Date { get; set; }
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- Product.cs -->
+        <div class="content-section" id="product-cs">
+            <h3>Product.cs</h3>
+            <p>
+                Класс <code>Product</code> описывает товар на складе. Помимо идентификатора и
+                наименования, содержит поле <code>CurrentStock</code> — текущий остаток товара,
+                а также <code>MinStock</code> — минимальный пороговый остаток, при достижении
+                которого система помечает товар как требующий пополнения. Значение <code>MinStock</code>
+                также используется алгоритмом расчёта рекомендуемого объёма заказа в сервисе
+                <code>WarehouseService</code>.
+            </p>
+            <div class="code-file">
+                <div class="code-file-header">
+                    <div class="file-name">
+                        <span class="lang-dot csharp"></span>
+                        Models/Product.cs
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)">Копировать</button>
+                </div>
+                <pre><code class="language-csharp">using System.Xml.Serialization;
+
+namespace LogistPro.Models
+{
+    [XmlRoot("Product")]
+    public class Product
+    {
+        [XmlElement]
+        public int Id { get; set; }
+        [XmlElement]
+        public string Name { get; set; }
+        [XmlElement]
+        public int CurrentStock { get; set; }
+        [XmlElement]
+        public int MinStock { get; set; } // Минимальный остаток для заказа
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- ======== SERVICES ======== -->
+        <!-- ============================================ -->
+
+        <div class="content-section" id="services">
+            <h2>Services — Сервисный слой</h2>
+            <p>
+                Сервисный слой реализует всю бизнес-логику приложения и обеспечивает
+                взаимодействие между моделями данных и пользовательским интерфейсом.
+                Здесь используется паттерн Dependency Injection через интерфейс
+                <code>IFileService</code>, что позволяет легко заменять реализацию
+                работы с файлами при необходимости (например, для тестирования).
+            </p>
+        </div>
+
+        <!-- IFileService.cs -->
+        <div class="content-section" id="ifileservice-cs">
+            <h3>IFileService.cs</h3>
+            <p>
+                Интерфейс <code>IFileService</code> определяет контракт для операций
+                сохранения и загрузки данных. Он содержит четыре метода: загрузку и
+                сохранение списка товаров, а также загрузку и сохранение журнала
+                операций. Реализация интерфейса позволяет абстрагироваться от конкретного
+                способа хранения данных и упрощает модульное тестирование.
+            </p>
+            <div class="code-file">
+                <div class="code-file-header">
+                    <div class="file-name">
+                        <span class="lang-dot csharp"></span>
+                        Services/IFileService.cs
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)">Копировать</button>
+                </div>
+                <pre><code class="language-csharp">using System.Collections.Generic;
+using LogistPro.Models;
+
+namespace LogistPro.Services
+{
+    public interface IFileService
+    {
+        List&lt;Product&gt; LoadProducts();
+        void SaveProducts(List&lt;Product&gt; products);
+        List&lt;Operation&gt; LoadOperations();
+        void SaveOperations(List&lt;Operation&gt; operations);
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- FileService.cs -->
+        <div class="content-section" id="fileservice-cs">
+            <h3>FileService.cs</h3>
+            <p>
+                Класс <code>FileService</code> реализует интерфейс <code>IFileService</code>
+                и обеспечивает фактическую работу с XML-файлами на диске. Данные товаров
+                хранятся в файле <code>products.xml</code>, а журнал операций — в
+                <code>journal.xml</code>. При чтении файлов используется автоматическое
+                определение кодировки (BOM). В случае ошибки десериализации файла товаров
+                создается его резервная копия с расширением <code>.backup</code>, после чего
+                возвращается пустой список, что предотвращает аварийное завершение приложения.
+            </p>
+            <div class="code-file">
+                <div class="code-file-header">
+                    <div class="file-name">
+                        <span class="lang-dot csharp"></span>
+                        Services/FileService.cs
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)">Копировать</button>
+                </div>
+                <pre><code class="language-csharp">using LogistPro.Models;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Xml.Serialization;
+
+namespace LogistPro.Services
+{
+    public class FileService : IFileService
+    {
+        private readonly string _productsPath = "products.xml";
+        private readonly string _operationsPath = "journal.xml";
+
+        public List&lt;Product&gt; LoadProducts()
+        {
+            if (!File.Exists(_productsPath))
+                return new List&lt;Product&gt;();
+
+            try
+            {
+                var serializer = new XmlSerializer(typeof(List&lt;Product&gt;));
+                using (var reader = new StreamReader(_productsPath, Encoding.UTF8, true)) // true = detect BOM
+                {
+                    var result = (List&lt;Product&gt;)serializer.Deserialize(reader);
+                    return result ?? new List&lt;Product&gt;();
+                }
             }
-        });
-    </script>
+            catch (Exception ex)
+            {
+                // Создаём резервную копию битого файла
+                File.Copy(_productsPath, _productsPath + ".backup", true);
+
+                // Возвращаем пустой список вместо падения
+                return new List&lt;Product&gt;();
+            }
+        }
+
+        public void SaveProducts(List&lt;Product&gt; products)
+        {
+            var serializer = new XmlSerializer(typeof(List&lt;Product&gt;));
+            using (var stream = new FileStream(_productsPath, FileMode.Create))
+            {
+                serializer.Serialize(stream, products);
+            }
+        }
+
+        public List&lt;Operation&gt; LoadOperations()
+        {
+            if (!File.Exists(_operationsPath)) return new List&lt;Operation&gt;();
+            try
+            {
+                var serializer = new XmlSerializer(typeof(List&lt;Operation&gt;));
+                using (var stream = new FileStream(_operationsPath, FileMode.Open))
+                {
+                    return (List&lt;Operation&gt;)serializer.Deserialize(stream);
+                }
+            }
+            catch (Exception)
+            {
+                throw new Exception("Ошибка при чтении журнала операций.");
+            }
+        }
+
+        public void SaveOperations(List&lt;Operation&gt; operations)
+        {
+            var serializer = new XmlSerializer(typeof(List&lt;Operation&gt;));
+            using (var stream = new FileStream(_operationsPath, FileMode.Create))
+            {
+                serializer.Serialize(stream, operations);
+            }
+        }
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- WarehouseService.cs -->
+        <div class="content-section" id="warehouseservice-cs">
+            <h3>WarehouseService.cs</h3>
+            <p>
+                Класс <code>WarehouseService</code> является центральным компонентом бизнес-логики
+                приложения. Он координирует работу с товарами и операциями, предоставляя методы
+                для получения данных, проведения операций и аналитики. Ключевые алгоритмы,
+                реализованные в данном классе:
+            </p>
+            <ul>
+                <li><strong>Пересчёт остатков</strong> — метод <code>RecalculateStocks()</code>
+                    последовательно обрабатывает все записи журнала и вычисляет актуальные остатки
+                    каждого товара, обеспечивая консистентность данных;</li>
+                <li><strong>Проверка и списание</strong> — метод <code>TryProcessOperation()</code>
+                    проверяет достаточность товара перед расходной операцией и выбрасывает исключение
+                    при нехватке;</li>
+                <li><strong>Выбор товаров с низким остатком</strong> — метод <code>GetLowStockProducts()</code>
+                    фильтрует товары, у которых текущий остаток не превышает минимальный порог;</li>
+                <li><strong>Расчёт рекомендуемого количества</strong> — метод <code>CalculateRecommendedAmount()</code>
+                    вычисляет объём заказа, необходимый для доведения запаса до двукратного минимального
+                    остатка.</li>
+            </ul>
+            <div class="note warning">
+                <strong>Важно: генерация идентификаторов операций</strong>
+                В текущей реализации идентификатор операции формируется как <code>_operations.Count + 1</code>,
+                что работает корректно при последовательном добавлении. Для production-систем рекомендуется
+                использовать генератор с гарантированной уникальностью (GUID или атомарный счётчик).
+            </div>
+            <div class="code-file">
+                <div class="code-file-header">
+                    <div class="file-name">
+                        <span class="lang-dot csharp"></span>
+                        Services/WarehouseService.cs
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)">Копировать</button>
+                </div>
+                <pre><code class="language-csharp">using LogistPro.Models;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Xml.Serialization;
+
+namespace LogistPro.Services
+{
+    public class WarehouseService
+    {
+        private readonly IFileService _fileService;
+        private List&lt;Product&gt; _products;
+        private List&lt;Operation&gt; _operations;
+
+        public WarehouseService(IFileService fileService)
+        {
+            _fileService = fileService;
+            LoadData();
+        }
+
+        public void LoadData()
+        {
+            _products = _fileService.LoadProducts();
+            _operations = _fileService.LoadOperations();
+            RecalculateStocks();
+        }
+
+        // Алгоритм: Пересчет остатков на основе журнала
+        private void RecalculateStocks()
+        {
+            // Сбросим текущие остатки и пересчитаем по операциям для надежности
+            var stockDict = _products.ToDictionary(p =&gt; p.Id, p =&gt; 0);
+
+            foreach (var op in _operations)
+            {
+                if (stockDict.ContainsKey(op.ProductId))
+                {
+                    if (op.Type == "In") stockDict[op.ProductId] += op.Amount;
+                    else if (op.Type == "Out") stockDict[op.ProductId] -= op.Amount;
+                }
+            }
+
+            foreach (var p in _products)
+            {
+                p.CurrentStock = stockDict[p.Id];
+            }
+        }
+
+        public List&lt;Product&gt; GetProducts() =&gt; _products;
+        public List&lt;Operation&gt; GetOperations() =&gt; _operations;
+
+        // Алгоритм: Проверка и списание
+        public bool TryProcessOperation(int productId, int amount, string type)
+        {
+            var product = _products.FirstOrDefault(p =&gt; p.Id == productId);
+            if (product == null) return false;
+
+            if (type == "Out" &amp;&amp; product.CurrentStock &lt; amount)
+            {
+                throw new Exception($"Недостаток товара на складе! Остаток: {product.CurrentStock}");
+            }
+
+            var newOp = new Operation
+            {
+                Id = _operations.Count + 1,
+                ProductId = productId,
+                Amount = amount,
+                Type = type,
+                Date = DateTime.Now
+            };
+
+            _operations.Add(newOp);
+
+            // Обновляем локально
+            if (type == "In") product.CurrentStock += amount;
+            else product.CurrentStock -= amount;
+
+            SaveData();
+            return true;
+        }
+
+        // Алгоритм: Выбор товаров с минимальными остатками
+        public List&lt;Product&gt; GetLowStockProducts()
+        {
+            return _products.Where(p =&gt; p.CurrentStock &lt;= p.MinStock).ToList();
+        }
+
+        // Алгоритм: Расчет рекомендуемого количества
+        public int CalculateRecommendedAmount(Product product)
+        {
+            // Пример логики: довести до 2-х кратного минимума
+            int target = product.MinStock * 2;
+            int needed = target - product.CurrentStock;
+            return needed &gt; 0 ? needed : 0;
+        }
+
+        public void SaveData()
+        {
+            _fileService.SaveProducts(_products);
+            _fileService.SaveOperations(_operations);
+        }
+
+        public void ExportOrdersToXml(List&lt;Product&gt; orderList, string path)
+        {
+            var serializer = new XmlSerializer(typeof(List&lt;Product&gt;));
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                serializer.Serialize(stream, orderList);
+            }
+        }
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- ======== WINDOWS ======== -->
+        <!-- ============================================ -->
+
+        <div class="content-section" id="windows">
+            <h2>Windows — Пользовательский интерфейс</h2>
+            <p>
+                Слой представления реализован на базе технологии WPF (Windows Presentation Foundation)
+                и состоит из главного окна <code>MainWindow</code> и четырёх пользовательских элементов
+                управления, каждый из которых отвечает за отдельный экран приложения. Разметка интерфейса
+                определяется в XAML-файлах, а код-поддержка (event handlers, привязка данных) —
+                в соответствующих файлах <code>.xaml.cs</code>.
+            </p>
+        </div>
+
+        <!-- MainWindow.xaml -->
+        <div class="content-section" id="mainwindow-xaml">
+            <h3>MainWindow.xaml</h3>
+            <p>
+                Главное окно приложения реализует навигационный каркас с боковой панелью
+                и областью основного контента. Левая панель (<code>Grid.Column="0"</code>)
+                содержит логотип, навигационные кнопки для перехода между разделами и кнопку
+                выхода. Правая область (<code>Grid.Column="1"</code>) включает заголовок текущей
+                страницы и элемент <code>ContentControl</code>, в который динамически загружается
+                содержимое выбранного раздела. Окно запускается в развёрнутом состоянии
+                (<code>WindowState="Maximized"</code>) по центру экрана.
+            </p>
+            <div class="code-file">
+                <div class="code-file-header">
+                    <div class="file-name">
+                        <span class="lang-dot xaml"></span>
+                        Windows/MainWindow.xaml
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)">Копировать</button>
+                </div>
+                <pre><code class="language-xml">&lt;Window x:Class="LogistPro.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Логист-Про | Система управления складом"
+        WindowState="Maximized"
+        Background="{StaticResource Brush.Background}"
+        Foreground="{StaticResource Brush.Text}"
+        FontFamily="{StaticResource Font.Main}"
+        WindowStartupLocation="CenterScreen"&gt;
+
+    &lt;Grid&gt;
+        &lt;Grid.ColumnDefinitions&gt;
+            &lt;!-- Боковая панель --&gt;
+            &lt;ColumnDefinition Width="220"/&gt;
+            &lt;!-- Основной контент --&gt;
+            &lt;ColumnDefinition Width="*"/&gt;
+        &lt;/Grid.ColumnDefinitions&gt;
+
+        &lt;!-- === SIDEBAR === --&gt;
+        &lt;Border Grid.Column="0" Background="{StaticResource Brush.Primary}" Padding="0,20,0,0"&gt;
+            &lt;StackPanel&gt;
+                &lt;!-- Логотип --&gt;
+                &lt;StackPanel Margin="0,0,0,30" HorizontalAlignment="Center"&gt;
+                    &lt;TextBlock Text="&#x1F4E6;" FontSize="32" Foreground="White" HorizontalAlignment="Center"/&gt;
+                    &lt;TextBlock Text="Логист-Про" FontSize="18" FontWeight="Bold" Foreground="White" 
+                               HorizontalAlignment="Center" Margin="0,8,0,0"/&gt;
+                &lt;/StackPanel&gt;
+
+                &lt;!-- Навигация --&gt;
+                &lt;StackPanel Margin="0,0,0,20"&gt;
+                    &lt;Button Content="Главная" Style="{StaticResource Button.Secondary}" 
+                            Foreground="White" BorderBrush="Transparent"
+                            HorizontalAlignment="Stretch" Margin="12,4"
+                            Click="BtnHome_Click"/&gt;
+
+                    &lt;Button Content="Остатки" Style="{StaticResource Button.Secondary}" 
+                            Foreground="White" BorderBrush="Transparent"
+                            HorizontalAlignment="Stretch" Margin="12,4"
+                            Click="BtnStock_Click"/&gt;
+
+                    &lt;Button Content="Журнал" Style="{StaticResource Button.Secondary}" 
+                            Foreground="White" BorderBrush="Transparent"
+                            HorizontalAlignment="Stretch" Margin="12,4"
+                            Click="BtnJournal_Click"/&gt;
+
+                    &lt;Button Content="Аналитика" Style="{StaticResource Button.Secondary}" 
+                            Foreground="White" BorderBrush="Transparent"
+                            HorizontalAlignment="Stretch" Margin="12,4"
+                            Click="BtnAnalytics_Click"/&gt;
+                &lt;/StackPanel&gt;
+
+                &lt;!-- Нижняя часть --&gt;
+                &lt;StackPanel VerticalAlignment="Bottom" Margin="0,0,0,20"&gt;
+                    &lt;Button Content="Выход" Style="{StaticResource Button.Secondary}" 
+                            Foreground="#FFCDD2" BorderBrush="Transparent"
+                            HorizontalAlignment="Stretch" Margin="12,8"
+                            Click="BtnExit_Click"/&gt;
+                &lt;/StackPanel&gt;
+            &lt;/StackPanel&gt;
+        &lt;/Border&gt;
+
+        &lt;!-- === MAIN CONTENT AREA === --&gt;
+        &lt;Grid Grid.Column="1" Margin="24"&gt;
+            &lt;Grid.RowDefinitions&gt;
+                &lt;RowDefinition Height="Auto"/&gt;
+                &lt;RowDefinition Height="*"/&gt;
+            &lt;/Grid.RowDefinitions&gt;
+
+            &lt;!-- Заголовок страницы --&gt;
+            &lt;StackPanel Grid.Row="0" Margin="0,0,0,16"&gt;
+                &lt;TextBlock x:Name="TxtPageTitle" Text="Панель управления" 
+                           FontSize="24" FontWeight="Bold" Foreground="{StaticResource Brush.Text}"/&gt;
+                &lt;TextBlock Text="Управление складскими операциями и аналитикой" 
+                           Foreground="{StaticResource Brush.Text.Light}" FontSize="14"/&gt;
+            &lt;/StackPanel&gt;
+
+            &lt;!-- Область контента --&gt;
+            &lt;Border Grid.Row="1" Style="{StaticResource Card.Standard}" Padding="24"&gt;
+                &lt;ContentControl x:Name="MainContent"/&gt;
+            &lt;/Border&gt;
+        &lt;/Grid&gt;
+    &lt;/Grid&gt;
+&lt;/Window&gt;</code></pre>
+            </div>
+        </div>
+
+        <!-- MainWindow.xaml.cs -->
+        <div class="content-section" id="mainwindow-cs">
+            <h3>MainWindow.xaml.cs</h3>
+            <p>
+                Код-поддержка главного окна инициализирует сервисы при загрузке, управляет навигацией
+                между разделами и создаёт содержимое главной панели (Dashboard). Свойство
+                <code>Warehouse</code> объявлено как статическое, что позволяет другим элементам
+                управления обращаться к сервису склада напрямую. Метод <code>CreateDashboardContent()</code>
+                формирует набор карточек статистики, отображающих количество товаров, операций
+                и товаров с низким остатком.
+            </p>
+            <div class="code-file">
+                <div class="code-file-header">
+                    <div class="file-name">
+                        <span class="lang-dot csharp"></span>
+                        Windows/MainWindow.xaml.cs
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)">Копировать</button>
+                </div>
+                <pre><code class="language-csharp">using System;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using LogistPro.Services;
+
+namespace LogistPro.Windows
+{
+    public partial class MainWindow : Window
+    {
+        public static WarehouseService Warehouse { get; private set; }
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Инициализация сервисов
+            var fileService = new FileService();
+            Warehouse = new WarehouseService(fileService);
+
+            // Показать главную страницу по умолчанию
+            ShowDashboard();
+        }
+
+        private void SetPageTitle(string title) =&gt; TxtPageTitle.Text = title;
+
+        private void ShowDashboard()
+        {
+            SetPageTitle("Панель управления");
+            MainContent.Content = CreateDashboardContent();
+        }
+
+        private void BtnHome_Click(object sender, RoutedEventArgs e) =&gt; ShowDashboard();
+        private void BtnStock_Click(object sender, RoutedEventArgs e)
+        {
+            SetPageTitle("Остатки на складах");
+            var content = new StockContent();
+            MainContent.Content = content;
+            // Авто-обновление при открытии
+            content.ForceRefresh();
+        }
+
+        private void BtnJournal_Click(object sender, RoutedEventArgs e)
+        {
+            SetPageTitle("Журнал операций");
+            var content = new JournalContent();
+            MainContent.Content = content;
+            // Авто-обновление при открытии
+            content.ForceRefresh();
+        }
+
+        private void BtnAnalytics_Click(object sender, RoutedEventArgs e)
+        {
+            SetPageTitle("Аналитика и заказы");
+            var content = new AnalyticsContent();
+            MainContent.Content = content;
+            // Авто-обновление при открытии
+            content.ForceRefresh();
+        }
+        private void BtnExit_Click(object sender, RoutedEventArgs e) =&gt; Close();
+
+        // Простая дашборд-панель
+        private Grid CreateDashboardContent()
+        {
+            var grid = new Grid();
+            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+
+            // Приветствие
+            var welcome = new TextBlock
+            {
+                Text = "Добро пожаловать в Логист-Про",
+                FontSize = 20,
+                FontWeight = FontWeights.Medium,
+                Margin = new Thickness(0, 0, 0, 24)
+            };
+            Grid.SetRow(welcome, 0);
+            grid.Children.Add(welcome);
+
+            // Карточки статистики
+            var statsPanel = new WrapPanel { Orientation = Orientation.Horizontal };
+
+            var products = Warehouse?.GetProducts()?.Count ?? 0;
+            var ops = Warehouse?.GetOperations()?.Count ?? 0;
+            var lowStock = Warehouse?.GetLowStockProducts()?.Count ?? 0;
+
+            statsPanel.Children.Add(CreateStatCard("&#x1F4E6; Товаров", products.ToString(), "#0D47A1"));
+            statsPanel.Children.Add(CreateStatCard("&#x1F4CB; Операций", ops.ToString(), "#1565C0"));
+            statsPanel.Children.Add(CreateStatCard("&#x26A0;&#xFE0F; Низкий остаток", lowStock.ToString(), "#F57C00"));
+
+            Grid.SetRow(statsPanel, 1);
+            grid.Children.Add(statsPanel);
+
+            return grid;
+        }
+
+        private Border CreateStatCard(string label, string value, string color)
+        {
+            var border = new Border
+            {
+                Style = Application.Current.FindResource("Card.Standard") as Style,
+                Width = 200,
+                Margin = new Thickness(0, 0, 16, 0)
+            };
+
+            var stack = new StackPanel();
+            stack.Children.Add(new TextBlock { Text = label, FontSize = 13, Foreground = (Brush)Application.Current.FindResource("Brush.Text.Light") });
+            stack.Children.Add(new TextBlock { Text = value, FontSize = 28, FontWeight = FontWeights.Bold, Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(color)), Margin = new Thickness(0, 8, 0, 0) });
+
+            border.Child = stack;
+            return border;
+        }
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- StockContent.xaml -->
+        <div class="content-section" id="stockcontent-xaml">
+            <h3>StockContent.xaml</h3>
+            <p>
+                Элемент управления <code>StockContent</code> отображает таблицу остатков товаров на складе.
+                Верхняя панель инструментов содержит поле поиска по названию товара и кнопку экспорта.
+                Основная таблица (<code>DataGrid</code>) показывает ID, наименование, текущий остаток,
+                минимальный порог, текстовый статус с цветовой индикацией и кнопки для проведения
+                приходных (+) и расходных (&minus;) операций. Фильтрация по названию реализована
+                через событие <code>TextChanged</code> текстового поля поиска.
+            </p>
+            <div class="code-file">
+                <div class="code-file-header">
+                    <div class="file-name">
+                        <span class="lang-dot xaml"></span>
+                        Windows/StockContent.xaml
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)">Копировать</button>
+                </div>
+                <pre><code class="language-xml">&lt;UserControl x:Class="LogistPro.Windows.StockContent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{StaticResource Brush.Background}"&gt;
+
+    &lt;Grid&gt;
+        &lt;Grid.RowDefinitions&gt;
+            &lt;RowDefinition Height="Auto"/&gt;
+            &lt;RowDefinition Height="*"/&gt;
+            &lt;RowDefinition Height="Auto"/&gt;
+        &lt;/Grid.RowDefinitions&gt;
+
+        &lt;!-- Панель инструментов --&gt;
+        &lt;StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,16"&gt;
+            &lt;TextBox Style="{StaticResource TextBox.Standard}" Width="250" 
+                     x:Name="TxtSearch" TextChanged="TxtSearch_TextChanged"&gt;
+                &lt;TextBox.ToolTip&gt;Поиск по названию&lt;/TextBox.ToolTip&gt;
+            &lt;/TextBox&gt;
+            &lt;Button Content="Экспорт" Style="{StaticResource Button.Secondary}" 
+                    Margin="12,0,0,0" Click="BtnExport_Click"/&gt;
+        &lt;/StackPanel&gt;
+
+        &lt;!-- Таблица --&gt;
+        &lt;Border Grid.Row="1" Style="{StaticResource Card.Standard}" Padding="0"&gt;
+            &lt;DataGrid x:Name="DgStock" Style="{StaticResource DataGrid.Corporate}"
+                      ColumnHeaderStyle="{StaticResource DataGridColumnHeader.Corporate}"
+                      IsReadOnly="True"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      SelectionMode="Single"&gt;
+                &lt;DataGrid.Columns&gt;
+                    &lt;DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="60"/&gt;
+                    &lt;DataGridTextColumn Header="Наименование" Binding="{Binding Name}" Width="*"/&gt;
+                    &lt;DataGridTextColumn Header="Остаток" Binding="{Binding CurrentStock}" Width="100"&gt;
+                        &lt;DataGridTextColumn.ElementStyle&gt;
+                            &lt;Style TargetType="TextBlock"&gt;
+                                &lt;Setter Property="HorizontalAlignment" Value="Right"/&gt;
+                                &lt;Setter Property="FontWeight" Value="Medium"/&gt;
+                                &lt;Setter Property="FontSize" Value="13"/&gt;
+                            &lt;/Style&gt;
+                        &lt;/DataGridTextColumn.ElementStyle&gt;
+                    &lt;/DataGridTextColumn&gt;
+                    &lt;DataGridTextColumn Header="Мин." Binding="{Binding MinStock}" Width="80"/&gt;
+
+                    &lt;!-- Статус с цветом --&gt;
+                    &lt;DataGridTemplateColumn Header="Статус" Width="140"&gt;
+                        &lt;DataGridTemplateColumn.CellTemplate&gt;
+                            &lt;DataTemplate&gt;
+                                &lt;Border 
+                                        CornerRadius="12" 
+                                        Padding="8,4" 
+                                        HorizontalAlignment="Center"&gt;
+                                    &lt;TextBlock Text="{Binding StatusText}" 
+                                               FontSize="11" 
+                                               FontWeight="Medium" 
+                                               TextAlignment="Center"
+                                               /&gt;
+                                &lt;/Border&gt;
+                            &lt;/DataTemplate&gt;
+                        &lt;/DataGridTemplateColumn.CellTemplate&gt;
+                    &lt;/DataGridTemplateColumn&gt;
+
+                    &lt;!-- Кнопки действий --&gt;
+                    &lt;DataGridTemplateColumn Header="Действия" Width="140"&gt;
+                        &lt;DataGridTemplateColumn.CellTemplate&gt;
+                            &lt;DataTemplate&gt;
+                                &lt;StackPanel Orientation="Horizontal" HorizontalAlignment="Center"&gt;
+                                    &lt;Button Content="+" ToolTip="Приход" Width="28" Height="28" 
+                                            Style="{StaticResource Button.Secondary}" Padding="0" FontSize="14" FontWeight="Bold"
+                                            Click="BtnAddStock_Click" Tag="{Binding Id}"/&gt;
+                                    &lt;Button Content="&#x2212;" ToolTip="Расход" Width="28" Height="28" 
+                                            Style="{StaticResource Button.Secondary}" Padding="0" FontSize="14" FontWeight="Bold"
+                                            Margin="4,0,0,0" Click="BtnRemoveStock_Click" Tag="{Binding Id}"/&gt;
+                                &lt;/StackPanel&gt;
+                            &lt;/DataTemplate&gt;
+                        &lt;/DataGridTemplateColumn.CellTemplate&gt;
+                    &lt;/DataGridTemplateColumn&gt;
+                &lt;/DataGrid.Columns&gt;
+            &lt;/DataGrid&gt;
+        &lt;/Border&gt;
+
+        &lt;!-- Инфо --&gt;
+        &lt;StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,12,0,0"&gt;
+            &lt;TextBlock x:Name="TxtInfo" Foreground="{StaticResource Brush.Text.Light}" FontSize="12"/&gt;
+        &lt;/StackPanel&gt;
+    &lt;/Grid&gt;
+&lt;/UserControl&gt;</code></pre>
+            </div>
+        </div>
+
+        <!-- StockContent.xaml.cs -->
+        <div class="content-section" id="stockcontent-cs">
+            <h3>StockContent.xaml.cs</h3>
+            <p>
+                Класс <code>StockItem</code> выступает в роли ViewModel для таблицы остатков,
+                оборачивая объект <code>Product</code> и добавляя вычисляемые свойства:
+                <code>StatusText</code>, <code>StatusColor</code> и <code>StatusBackground</code>
+                для цветовой индикации статуса товара (в норме / низкий остаток / нет в наличии).
+                Код-поддержка <code>StockContent</code> реализует загрузку данных, поиск,
+                экспорт в XML и обработку кликов по кнопкам прихода/расхода с открытием
+                диалогового окна <code>OperationDialog</code>.
+            </p>
+            <div class="code-file">
+                <div class="code-file-header">
+                    <div class="file-name">
+                        <span class="lang-dot csharp"></span>
+                        Windows/StockContent.xaml.cs
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)">Копировать</button>
+                </div>
+                <pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using LogistPro.Models;
+
+namespace LogistPro.Windows
+{
+    // Класс для отображения в таблице с готовым статусом
+    public class StockItem
+    {
+        public Product Source { get; set; }
+        public int Id =&gt; Source.Id;
+        public string Name =&gt; Source.Name;
+        public int CurrentStock =&gt; Source.CurrentStock;
+        public int MinStock =&gt; Source.MinStock;
+
+        // Готовый текст статуса
+        public string StatusText
+        {
+            get
+            {
+                if (CurrentStock == 0) return "Нет в наличии";
+                if (CurrentStock &lt;= MinStock) return "Низкий остаток";
+                return "В норме";
+            }
+        }
+
+        // Готовый цвет для статуса
+        public string StatusColor
+        {
+            get
+            {
+                if (CurrentStock == 0) return "#C62828"; // Красный
+                if (CurrentStock &lt;= MinStock) return "#F57C00"; // Оранжевый
+                return "#388E3C"; // Зелёный
+            }
+        }
+
+        // Готовый цвет фона для статуса
+        public string StatusBackground
+        {
+            get
+            {
+                if (CurrentStock == 0) return "#FFEBEE";
+                if (CurrentStock &lt;= MinStock) return "#FFF3E0";
+                return "#E8F5E9";
+            }
+        }
+    }
+
+    public partial class StockContent : UserControl
+    {
+        private List&lt;StockItem&gt; _allItems;
+        private List&lt;StockItem&gt; _filteredItems;
+
+        public StockContent()
+        {
+            InitializeComponent();
+            Loaded += StockContent_Loaded;
+        }
+
+        public void ForceRefresh()
+        {
+            LoadData();
+        }
+
+        private void StockContent_Loaded(object sender, RoutedEventArgs e) =&gt; LoadData();
+
+        private void LoadData()
+        {
+            try
+            {
+                if (MainWindow.Warehouse == null) return;
+
+                var products = MainWindow.Warehouse.GetProducts();
+                if (products == null) products = new List&lt;Product&gt;();
+
+                // Преобразуем в StockItem с готовыми статусами
+                _allItems = products.Select(p =&gt; new StockItem { Source = p }).ToList();
+
+                ApplyFilter();
+                UpdateInfo();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки: {ex.Message}", "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void ApplyFilter()
+        {
+            var search = TxtSearch?.Text?.ToLower().Trim() ?? "";
+
+            _filteredItems = string.IsNullOrEmpty(search)
+                ? _allItems
+                : _allItems.Where(p =&gt; p.Name.ToLower().Contains(search)).ToList();
+
+            if (DgStock != null)
+            {
+                DgStock.ItemsSource = _filteredItems;
+            }
+        }
+
+        private void UpdateInfo()
+        {
+            var total = _allItems?.Sum(p =&gt; p.CurrentStock) ?? 0;
+            var count = _filteredItems?.Count ?? 0;
+            if (TxtInfo != null)
+            {
+                TxtInfo.Text = $"Показано: {count} | Всего на складе: {total} ед.";
+            }
+        }
+
+        private void TxtSearch_TextChanged(object sender, TextChangedEventArgs e) =&gt; ApplyFilter();
+
+        private void BtnExport_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (MainWindow.Warehouse == null) return;
+
+                var path = $"StockExport_{DateTime.Now:yyyyMMdd_HHmm}.xml";
+                var list = _filteredItems?.Select(i =&gt; i.Source).ToList() ?? new List&lt;Product&gt;();
+                MainWindow.Warehouse.ExportOrdersToXml(list, path);
+                MessageBox.Show($"Экспорт выполнен: {path}", "Успех",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка экспорта",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void BtnAddStock_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn &amp;&amp; btn.Tag is int productId)
+                ProcessOperation(productId, "In");
+        }
+
+        private void BtnRemoveStock_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn &amp;&amp; btn.Tag is int productId)
+                ProcessOperation(productId, "Out");
+        }
+
+        private void ProcessOperation(int productId, string type)
+        {
+            var dialog = new OperationDialog(productId, type);
+            dialog.Owner = Window.GetWindow(this);
+            if (dialog.ShowDialog() == true)
+            {
+                try
+                {
+                    MainWindow.Warehouse.TryProcessOperation(productId, dialog.Amount, type);
+                    LoadData();
+                    MessageBox.Show("Операция выполнена", "Успех",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- JournalContent.xaml -->
+        <div class="content-section" id="journalcontent-xaml">
+            <h3>JournalContent.xaml</h3>
+            <p>
+                Элемент управления <code>JournalContent</code> обеспечивает работу с журналом
+                складских операций. Верхняя панель содержит форму для ввода новой операции:
+                идентификатор товара, количество и тип (приход/расход) через выпадающий список.
+                Основная таблица отображает все операции в обратном хронологическом порядке
+                с цветовой индикацией типа: зелёный для прихода, оранжевый для расхода.
+                Счётчик внизу показывает общее количество операций.
+            </p>
+            <div class="code-file">
+                <div class="code-file-header">
+                    <div class="file-name">
+                        <span class="lang-dot xaml"></span>
+                        Windows/JournalContent.xaml
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)">Копировать</button>
+                </div>
+                <pre><code class="language-xml">&lt;UserControl x:Class="LogistPro.Windows.JournalContent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{StaticResource Brush.Background}"&gt;
+
+    &lt;Grid&gt;
+        &lt;Grid.RowDefinitions&gt;
+            &lt;RowDefinition Height="Auto"/&gt;
+            &lt;RowDefinition Height="*"/&gt;
+            &lt;RowDefinition Height="Auto"/&gt;
+        &lt;/Grid.RowDefinitions&gt;
+
+        &lt;!-- Форма новой операции --&gt;
+        &lt;Border Grid.Row="0" Style="{StaticResource Card.Standard}" Margin="0,0,0,12"&gt;
+            &lt;Grid&gt;
+                &lt;Grid.ColumnDefinitions&gt;
+                    &lt;ColumnDefinition Width="Auto"/&gt;
+                    &lt;ColumnDefinition Width="*"/&gt;
+                    &lt;ColumnDefinition Width="Auto"/&gt;
+                    &lt;ColumnDefinition Width="Auto"/&gt;
+                &lt;/Grid.ColumnDefinitions&gt;
+
+                &lt;TextBlock Text="Товар ID:" VerticalAlignment="Center" Margin="0,0,8,0"/&gt;
+                &lt;TextBox x:Name="TxtProductId" Grid.Column="1" Style="{StaticResource TextBox.Standard}" Width="80" Margin="0,0,12,0"/&gt;
+
+                &lt;TextBlock Text="Кол-во:" Grid.Column="2" VerticalAlignment="Center" Margin="0,0,8,0"/&gt;
+                &lt;TextBox x:Name="TxtAmount" Grid.Column="3" Style="{StaticResource TextBox.Standard}" Width="80" Margin="0,0,12,0"/&gt;
+
+                &lt;ComboBox x:Name="CbType" Grid.Column="4" Width="100" Margin="0,0,12,0" &gt;
+                    &lt;ComboBoxItem Content="Приход" Tag="In" IsSelected="True"/&gt;
+                    &lt;ComboBoxItem Content="Расход" Tag="Out"/&gt;
+                &lt;/ComboBox&gt;
+
+                &lt;Button Content="&#x2705; Провести" Grid.Column="5" Style="{StaticResource Button.Primary}" 
+                        Click="BtnProcess_Click" Width="120"/&gt;
+            &lt;/Grid&gt;
+        &lt;/Border&gt;
+
+        &lt;!-- Таблица журнала --&gt;
+        &lt;Border Grid.Row="1" Style="{StaticResource Card.Standard}" Padding="0"&gt;
+            &lt;DataGrid x:Name="DgJournal" Style="{StaticResource DataGrid.Corporate}"
+                      ColumnHeaderStyle="{StaticResource DataGridColumnHeader.Corporate}"&gt;
+                &lt;DataGrid.Columns&gt;
+                    &lt;DataGridTextColumn Header="Дата" Binding="{Binding Date, StringFormat={}{0:dd.MM.yy HH:mm}}" Width="140"/&gt;
+                    &lt;DataGridTextColumn Header="Товар ID" Binding="{Binding ProductId}" Width="90"/&gt;
+                    &lt;DataGridTemplateColumn Header="Тип" Width="100"&gt;
+                        &lt;DataGridTemplateColumn.CellTemplate&gt;
+                            &lt;DataTemplate&gt;
+                                &lt;TextBlock Text="{Binding Type}" FontWeight="Medium"&gt;
+                                    &lt;TextBlock.Style&gt;
+                                        &lt;Style TargetType="TextBlock"&gt;
+                                            &lt;Setter Property="Foreground" Value="{StaticResource Brush.Text}"/&gt;
+                                            &lt;Style.Triggers&gt;
+                                                &lt;DataTrigger Binding="{Binding Type}" Value="In"&gt;
+                                                    &lt;Setter Property="Foreground" Value="{StaticResource Brush.Success}"/&gt;
+                                                &lt;/DataTrigger&gt;
+                                                &lt;DataTrigger Binding="{Binding Type}" Value="Out"&gt;
+                                                    &lt;Setter Property="Foreground" Value="{StaticResource Brush.Warning}"/&gt;
+                                                &lt;/DataTrigger&gt;
+                                            &lt;/Style.Triggers&gt;
+                                        &lt;/Style&gt;
+                                    &lt;/TextBlock.Style&gt;
+                                &lt;/TextBlock&gt;
+                            &lt;/DataTemplate&gt;
+                        &lt;/DataGridTemplateColumn.CellTemplate&gt;
+                    &lt;/DataGridTemplateColumn&gt;
+                    &lt;DataGridTextColumn Header="Кол-во" Binding="{Binding Amount}" Width="90"&gt;
+                        &lt;DataGridTextColumn.ElementStyle&gt;
+                            &lt;Style TargetType="TextBlock"&gt;
+                                &lt;Setter Property="HorizontalAlignment" Value="Right"/&gt;
+                                &lt;Setter Property="FontWeight" Value="Medium"/&gt;
+                            &lt;/Style&gt;
+                        &lt;/DataGridTextColumn.ElementStyle&gt;
+                    &lt;/DataGridTextColumn&gt;
+                &lt;/DataGrid.Columns&gt;
+            &lt;/DataGrid&gt;
+        &lt;/Border&gt;
+
+        &lt;!-- Инфо --&gt;
+        &lt;TextBlock Grid.Row="2" x:Name="TxtInfo" Margin="0,12,0,0" 
+                   Foreground="{StaticResource Brush.Text.Light}" FontSize="12"/&gt;
+    &lt;/Grid&gt;
+&lt;/UserControl&gt;</code></pre>
+            </div>
+        </div>
+
+        <!-- JournalContent.xaml.cs -->
+        <div class="content-section" id="journalcontent-cs">
+            <h3>JournalContent.xaml.cs</h3>
+            <p>
+                Код-поддержка журнала операций обрабатывает ввод пользователя, валидирует
+                данные (числовой формат ID и количества, выбор типа операции) и делегирует
+                выполнение операции сервису <code>WarehouseService</code>. После успешного
+                проведения операции форма очищается, таблица обновляется, а пользователь
+                получает уведомление об успехе. Ошибки форматирования и бизнес-правила
+                обрабатываются отдельно с соответствующими сообщениями.
+            </p>
+            <div class="code-file">
+                <div class="code-file-header">
+                    <div class="file-name">
+                        <span class="lang-dot csharp"></span>
+                        Windows/JournalContent.xaml.cs
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)">Копировать</button>
+                </div>
+                <pre><code class="language-csharp">using System;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using LogistPro.Models;
+
+namespace LogistPro.Windows
+{
+    public partial class JournalContent : UserControl
+    {
+        public JournalContent()
+        {
+            InitializeComponent();
+            Loaded += JournalContent_Loaded;
+        }
+
+        public void ForceRefresh()
+        {
+            LoadData();
+        }
+
+        private void JournalContent_Loaded(object sender, RoutedEventArgs e) =&gt; LoadData();
+
+        private void LoadData()
+        {
+            try
+            {
+                if (MainWindow.Warehouse == null) return;
+
+                DgJournal.ItemsSource = MainWindow.Warehouse.GetOperations()
+                    .OrderByDescending(o =&gt; o.Date)
+                    .ToList();
+                TxtInfo.Text = $"Всего операций: {DgJournal.Items.Count}";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void BtnProcess_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (!int.TryParse(TxtProductId.Text, out int productId))
+                    throw new FormatException("Неверный ID товара");
+                if (!int.TryParse(TxtAmount.Text, out int amount) || amount &lt;= 0)
+                    throw new FormatException("Неверное количество");
+
+                var type = ((ComboBoxItem)CbType.SelectedItem)?.Tag?.ToString();
+                if (string.IsNullOrEmpty(type))
+                    throw new Exception("Выберите тип операции");
+
+                MainWindow.Warehouse.TryProcessOperation(productId, amount, type);
+                LoadData();
+
+                TxtProductId.Clear();
+                TxtAmount.Clear();
+                MessageBox.Show("Операция выполнена успешно", "Успех",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show($"Проверьте ввод: {ex.Message}", "Ошибка ввода",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка операции",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- AnalyticsContent.xaml -->
+        <div class="content-section" id="analyticscontent-xaml">
+            <h3>AnalyticsContent.xaml</h3>
+            <p>
+                Элемент <code>AnalyticsContent</code> предоставляет аналитический экран
+                с фильтрацией и возможностью формирования заявки на заказ. Фильтр позволяет
+                отобразить либо все товары, либо только те, у которых остаток ниже минимального
+                порога. Таблица содержит расчётный столбец &laquo;Реком. заказ&raquo;, вычисляемый
+                на основе алгоритма из <code>WarehouseService.CalculateRecommendedAmount()</code>.
+                Чекбоксы в последнем столбце позволяют пользователю отметить товары для включения
+                в заявку, которая экспортируется в XML-файл по нажатию кнопки &laquo;Экспорт в XML&raquo;.
+            </p>
+            <div class="code-file">
+                <div class="code-file-header">
+                    <div class="file-name">
+                        <span class="lang-dot xaml"></span>
+                        Windows/AnalyticsContent.xaml
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)">Копировать</button>
+                </div>
+                <pre><code class="language-xml">&lt;UserControl x:Class="LogistPro.Windows.AnalyticsContent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{StaticResource Brush.Background}"&gt;
+
+    &lt;Grid&gt;
+        &lt;Grid.RowDefinitions&gt;
+            &lt;RowDefinition Height="Auto"/&gt;
+            &lt;RowDefinition Height="*"/&gt;
+            &lt;RowDefinition Height="Auto"/&gt;
+        &lt;/Grid.RowDefinitions&gt;
+
+        &lt;!-- Фильтр --&gt;
+        &lt;StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,16"&gt;
+            &lt;TextBlock Text="Фильтр:" VerticalAlignment="Center" Margin="0,0,8,0"
+               Foreground="{StaticResource Brush.Text}"/&gt;
+            &lt;ComboBox x:Name="CbFilter" Width="220"
+                SelectionChanged="CbFilter_SelectionChanged"&gt;
+                &lt;ComboBoxItem Content="Все товары" IsSelected="True"/&gt;
+                &lt;ComboBoxItem Content="Только низкий остаток"/&gt;
+            &lt;/ComboBox&gt;
+        &lt;/StackPanel&gt;
+
+        &lt;!-- Таблица --&gt;
+        &lt;Border Grid.Row="1" Style="{StaticResource Card.Standard}" Padding="0"&gt;
+            &lt;DataGrid x:Name="DgAnalytics" Style="{StaticResource DataGrid.Corporate}"
+              ColumnHeaderStyle="{StaticResource DataGridColumnHeader.Corporate}"
+              SelectionMode="Single"
+              IsReadOnly="True"
+              CanUserAddRows="False"
+              CanUserDeleteRows="False"
+              CanUserReorderColumns="False"
+              CanUserResizeColumns="True"
+              CanUserSortColumns="False"&gt;
+                &lt;DataGrid.Columns&gt;
+                    &lt;DataGridTextColumn Header="Товар" Binding="{Binding Name}" Width="*" IsReadOnly="True"/&gt;
+                    &lt;DataGridTextColumn Header="Остаток" Binding="{Binding CurrentStock}" Width="100" IsReadOnly="True"&gt;
+                        &lt;DataGridTextColumn.ElementStyle&gt;
+                            &lt;Style TargetType="TextBlock"&gt;
+                                &lt;Setter Property="HorizontalAlignment" Value="Right"/&gt;
+                                &lt;Setter Property="FontWeight" Value="Medium"/&gt;
+                            &lt;/Style&gt;
+                        &lt;/DataGridTextColumn.ElementStyle&gt;
+                    &lt;/DataGridTextColumn&gt;
+                    &lt;DataGridTextColumn Header="Мин." Binding="{Binding MinStock}" Width="80" IsReadOnly="True"/&gt;
+                    &lt;DataGridTemplateColumn Header="Реком. заказ" Width="130"&gt;
+                        &lt;DataGridTemplateColumn.CellTemplate&gt;
+                            &lt;DataTemplate&gt;
+                                &lt;TextBlock Text="{Binding RecommendedOrder}" 
+                                   FontWeight="Bold" 
+                                   Foreground="{StaticResource Brush.Primary}"
+                                   HorizontalAlignment="Right"/&gt;
+                            &lt;/DataTemplate&gt;
+                        &lt;/DataGridTemplateColumn.CellTemplate&gt;
+                    &lt;/DataGridTemplateColumn&gt;
+                    &lt;DataGridCheckBoxColumn Header="" Binding="{Binding IsSelected}" Width="50"/&gt;
+                &lt;/DataGrid.Columns&gt;
+            &lt;/DataGrid&gt;
+        &lt;/Border&gt;
+
+        &lt;!-- Кнопки --&gt;
+        &lt;StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0"&gt;
+            &lt;Button Content="&#x1F4C4; Экспорт в XML" Style="{StaticResource Button.Primary}" 
+                    Width="200" Click="BtnExportOrder_Click"/&gt;
+        &lt;/StackPanel&gt;
+    &lt;/Grid&gt;
+&lt;/UserControl&gt;</code></pre>
+            </div>
+        </div>
+
+        <!-- AnalyticsContent.xaml.cs -->
+        <div class="content-section" id="analyticscontent-cs">
+            <h3>AnalyticsContent.xaml.cs</h3>
+            <p>
+                Класс <code>AnalyticsItem</code> служит ViewModel для аналитической таблицы,
+                оборачивая <code>Product</code> и добавляя свойство <code>RecommendedOrder</code>
+                (рекомендуемый объём заказа, вычисляемый через сервис) и <code>IsSelected</code>
+                (флаг для отметки товара в заявке). Метод <code>BtnExportOrder_Click</code>
+                собирает отмеченные товары и передаёт их в метод <code>ExportOrdersToXml()</code>,
+                сохраняя заявку в файл с автоматически сформированным именем, содержащим
+                дату и время создания.
+            </p>
+            <div class="code-file">
+                <div class="code-file-header">
+                    <div class="file-name">
+                        <span class="lang-dot csharp"></span>
+                        Windows/AnalyticsContent.xaml.cs
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)">Копировать</button>
+                </div>
+                <pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using LogistPro.Models;
+
+namespace LogistPro.Windows
+{
+    public class AnalyticsItem
+    {
+        public Product Source { get; set; }
+        public string Name =&gt; Source?.Name ?? "Неизвестно";
+        public int CurrentStock =&gt; Source?.CurrentStock ?? 0;
+        public int MinStock =&gt; Source?.MinStock ?? 0;
+        public int RecommendedOrder { get; set; }
+        public bool IsSelected { get; set; }
+    }
+
+    public partial class AnalyticsContent : UserControl
+    {
+        private List&lt;AnalyticsItem&gt; _items;
+
+        public AnalyticsContent()
+        {
+            InitializeComponent();
+            Loaded += AnalyticsContent_Loaded;
+        }
+
+        // ПУБЛИЧНЫЙ МЕТОД ДЛЯ АВТООБНОВЛЕНИЯ
+        public void ForceRefresh()
+        {
+            LoadData();
+        }
+
+        private void AnalyticsContent_Loaded(object sender, RoutedEventArgs e) =&gt; LoadData();
+
+        private void LoadData()
+        {
+            try
+            {
+                if (MainWindow.Warehouse == null)
+                {
+                    MessageBox.Show("Сервис Warehouse не инициализирован", "Ошибка",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                var products = MainWindow.Warehouse.GetProducts();
+                if (products == null) products = new List&lt;Product&gt;();
+
+                var lowStock = MainWindow.Warehouse.GetLowStockProducts();
+                if (lowStock == null) lowStock = new List&lt;Product&gt;();
+
+                _items = new List&lt;AnalyticsItem&gt;();
+
+                var filterLow = CbFilter?.SelectedIndex == 1;
+                var sourceList = filterLow ? lowStock : products;
+
+                foreach (var p in sourceList)
+                {
+                    if (p == null) continue;
+
+                    int recommended = MainWindow.Warehouse.CalculateRecommendedAmount(p);
+
+                    _items.Add(new AnalyticsItem
+                    {
+                        Source = p,
+                        RecommendedOrder = recommended,
+                        IsSelected = lowStock.Contains(p)
+                    });
+                }
+
+                if (DgAnalytics != null)
+                {
+                    DgAnalytics.ItemsSource = _items;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки аналитики:\n{ex.Message}",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void CbFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (MainWindow.Warehouse != null)
+                LoadData();
+        }
+
+        private void BtnRefresh_Click(object sender, RoutedEventArgs e) =&gt; LoadData();
+
+        private void BtnExportOrder_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (MainWindow.Warehouse == null)
+                {
+                    MessageBox.Show("Warehouse не инициализирован", "Ошибка",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                if (_items == null || !_items.Any())
+                {
+                    MessageBox.Show("Нет данных для экспорта", "Внимание",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                var selected = _items.Where(i =&gt; i.IsSelected).Select(i =&gt; i.Source).ToList();
+                if (!selected.Any())
+                {
+                    MessageBox.Show("Выберите товары для заказа", "Внимание",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                var path = $"Order_{DateTime.Now:yyyyMMdd_HHmm}.xml";
+                MainWindow.Warehouse.ExportOrdersToXml(selected, path);
+                MessageBox.Show($"&#x2705; Заявка сформирована:\n{path}", "Успех",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка экспорта",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- OperationDialog.xaml -->
+        <div class="content-section" id="operationdialog-xaml">
+            <h3>OperationDialog.xaml</h3>
+            <p>
+                <code>OperationDialog</code> — модальное диалоговое окно для проведения
+                складской операции. Отображает название товара и тип операции в заголовке,
+                текущий остаток в информационной строке, поле ввода количества с ограничением
+                на только числовые символы (через <code>PreviewTextInput</code>), а также
+                кнопки &laquo;Отмена&raquo; и &laquo;Подтвердить&raquo;. Окно автоматически
+                подстраивается по размеру контента и не допускает ручное изменение размеров.
+            </p>
+            <div class="code-file">
+                <div class="code-file-header">
+                    <div class="file-name">
+                        <span class="lang-dot xaml"></span>
+                        Windows/OperationDialog.xaml
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)">Копировать</button>
+                </div>
+                <pre><code class="language-xml">&lt;Window x:Class="LogistPro.Windows.OperationDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Новая операция" SizeToContent="WidthAndHeight"
+        Background="{StaticResource Brush.Background}"
+        FontFamily="{StaticResource Font.Main}"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"&gt;
+
+    &lt;Border Style="{StaticResource Card.Standard}" Width="320" Padding="24"&gt;
+        &lt;StackPanel&gt;
+            &lt;TextBlock x:Name="TxtTitle" FontSize="18" FontWeight="Bold" 
+                       Foreground="{StaticResource Brush.Text}" Margin="0,0,0,16"/&gt;
+
+            &lt;TextBlock Text="Количество:" FontSize="13" Margin="0,0,0,6"
+                       Foreground="{StaticResource Brush.Text}"/&gt;
+            &lt;TextBox x:Name="TxtAmount" Style="{StaticResource TextBox.Standard}" 
+                     PreviewTextInput="TxtAmount_PreviewTextInput"/&gt;
+
+            &lt;TextBlock x:Name="TxtCurrentStock" FontSize="12" 
+                       Foreground="{StaticResource Brush.Text.Light}" Margin="0,8,0,0"/&gt;
+
+            &lt;StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,24,0,0"&gt;
+                &lt;Button Content="Отмена" Style="{StaticResource Button.Secondary}" 
+                        Width="100" IsCancel="True" Margin="0,0,8,0"/&gt;
+                &lt;Button Content="Подтвердить" Style="{StaticResource Button.Primary}" 
+                        Width="120" Click="BtnConfirm_Click" IsDefault="True"/&gt;
+            &lt;/StackPanel&gt;
+        &lt;/StackPanel&gt;
+    &lt;/Border&gt;
+&lt;/Window&gt;</code></pre>
+            </div>
+        </div>
+
+        <!-- OperationDialog.xaml.cs -->
+        <div class="content-section" id="operationdialog-cs">
+            <h3>OperationDialog.xaml.cs</h3>
+            <p>
+                Код-поддержка диалогового окна инициализируется с передачей идентификатора
+                товара и типа операции. В конструкторе загружаются данные товара из сервиса
+                для отображения текущего остатка. Ввод ограничен только числовыми символами
+                через регулярное выражение. При подтверждении для расходных операций
+                выполняется дополнительная проверка остатка, и в случае нехватки товара
+                выводится предупреждение. Результат передаётся через свойство <code>Amount</code>
+                и <code>DialogResult</code>.
+            </p>
+            <div class="code-file">
+                <div class="code-file-header">
+                    <div class="file-name">
+                        <span class="lang-dot csharp"></span>
+                        Windows/OperationDialog.xaml.cs
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)">Копировать</button>
+                </div>
+                <pre><code class="language-csharp">using System.Linq;
+using System.Text.RegularExpressions;
+using System.Windows;
+using System.Windows.Input;
+using LogistPro.Models;
+
+namespace LogistPro.Windows
+{
+    public partial class OperationDialog : Window
+    {
+        public int Amount { get; private set; }
+        private readonly Product _product;
+        private readonly string _operationType;
+
+        public OperationDialog(int productId, string type)
+        {
+            InitializeComponent();
+            _product = MainWindow.Warehouse.GetProducts().FirstOrDefault(p =&gt; p.Id == productId);
+            _operationType = type;
+
+            TxtTitle.Text = $"{(type == "In" ? "&#x2795; Приход" : "&#x2796; Расход")}: {_product?.Name}";
+            TxtCurrentStock.Text = $"Текущий остаток: {_product?.CurrentStock} ед.";
+
+            if (type == "Out")
+                TxtAmount.ToolTip = $"Максимум: {_product?.CurrentStock}";
+        }
+
+        private void TxtAmount_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !Regex.IsMatch(e.Text, @"^\d+$");
+        }
+
+        private void BtnConfirm_Click(object sender, RoutedEventArgs e)
+        {
+            if (int.TryParse(TxtAmount.Text, out int amount) &amp;&amp; amount &gt; 0)
+            {
+                if (_operationType == "Out" &amp;&amp; amount &gt; _product.CurrentStock)
+                {
+                    MessageBox.Show("Недостаточно товара на складе!", "Ошибка",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                Amount = amount;
+                DialogResult = true;
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Введите корректное количество", "Ошибка ввода",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- ======== APP ======== -->
+        <!-- ============================================ -->
+
+        <div class="content-section" id="app">
+            <h2>App — Конфигурация приложения</h2>
+            <p>
+                Файлы конфигурации приложения определяют глобальные ресурсы WPF (цвета, кисти,
+                стили элементов управления) и точку входа в приложение. Все стили объявлены
+                централизованно в <code>App.xaml</code>, что обеспечивает единообразие
+                визуального оформления всех окон и элементов управления.
+            </p>
+        </div>
+
+        <!-- App.xaml -->
+        <div class="content-section" id="app-xaml">
+            <h3>App.xaml</h3>
+            <p>
+                В <code>App.xaml</code> определены все стили приложения: палитра из 10 цветов,
+                brushes для каждого цвета, шрифт <code>Segoe UI</code>, а также стили для
+                кнопок (Primary и Secondary), текстовых полей, таблиц <code>DataGrid</code>,
+                карточек и бейджей статуса. Кнопка Primary использует кастомный
+                <code>ControlTemplate</code> с триггерами для состояний наведения, нажатия
+                и отключения, а также скруглёнными углами (<code>CornerRadius="6"</code>).
+                Стили DataGrid задают корпоративный вид с заголовками на синем фоне.
+            </p>
+            <div class="code-file">
+                <div class="code-file-header">
+                    <div class="file-name">
+                        <span class="lang-dot xaml"></span>
+                        App.xaml
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)">Копировать</button>
+                </div>
+                <pre><code class="language-xml">&lt;Application x:Class="LogistPro.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             &gt;
+    &lt;Application.Resources&gt;
+        &lt;ResourceDictionary&gt;
+
+            &lt;!-- === ЦВЕТОВАЯ ПАЛИТРА === --&gt;
+            &lt;Color x:Key="Color.Background"&gt;#F8F9FA&lt;/Color&gt;
+            &lt;Color x:Key="Color.Primary"&gt;#0D47A1&lt;/Color&gt;
+            &lt;Color x:Key="Color.PrimaryLight"&gt;#1565C0&lt;/Color&gt;
+            &lt;Color x:Key="Color.Text"&gt;#37474F&lt;/Color&gt;
+            &lt;Color x:Key="Color.Text.Light"&gt;#78909C&lt;/Color&gt;
+            &lt;Color x:Key="Color.Link"&gt;#1976D2&lt;/Color&gt;
+            &lt;Color x:Key="Color.Success"&gt;#388E3C&lt;/Color&gt;
+            &lt;Color x:Key="Color.Warning"&gt;#F57C00&lt;/Color&gt;
+            &lt;Color x:Key="Color.Error"&gt;#C62828&lt;/Color&gt;
+            &lt;Color x:Key="Color.Border"&gt;#E0E0E0&lt;/Color&gt;
+            &lt;Color x:Key="Color.Card"&gt;#FFFFFF&lt;/Color&gt;
+
+            &lt;SolidColorBrush x:Key="Brush.Background" Color="{StaticResource Color.Background}"/&gt;
+            &lt;SolidColorBrush x:Key="Brush.Primary" Color="{StaticResource Color.Primary}"/&gt;
+            &lt;SolidColorBrush x:Key="Brush.PrimaryLight" Color="{StaticResource Color.PrimaryLight}"/&gt;
+            &lt;SolidColorBrush x:Key="Brush.Text" Color="{StaticResource Color.Text}"/&gt;
+            &lt;SolidColorBrush x:Key="Brush.Text.Light" Color="{StaticResource Color.Text.Light}"/&gt;
+            &lt;SolidColorBrush x:Key="Brush.Link" Color="{StaticResource Color.Link}"/&gt;
+            &lt;SolidColorBrush x:Key="Brush.Success" Color="{StaticResource Color.Success}"/&gt;
+            &lt;SolidColorBrush x:Key="Brush.Warning" Color="{StaticResource Color.Warning}"/&gt;
+            &lt;SolidColorBrush x:Key="Brush.Error" Color="{StaticResource Color.Error}"/&gt;
+            &lt;SolidColorBrush x:Key="Brush.Border" Color="{StaticResource Color.Border}"/&gt;
+            &lt;SolidColorBrush x:Key="Brush.Card" Color="{StaticResource Color.Card}"/&gt;
+
+            &lt;!-- === ШРИФТЫ === --&gt;
+            &lt;FontFamily x:Key="Font.Main"&gt;Segoe UI, Tahoma, Geneva, Verdana, sans-serif&lt;/FontFamily&gt;
+
+            &lt;!-- === СТИЛИ КНОПОК === --&gt;
+            &lt;Style x:Key="Button.Primary" TargetType="Button"&gt;
+                &lt;Setter Property="Background" Value="{StaticResource Brush.Primary}"/&gt;
+                &lt;Setter Property="Foreground" Value="White"/&gt;
+                &lt;Setter Property="FontSize" Value="14"/&gt;
+                &lt;Setter Property="FontWeight" Value="Medium"/&gt;
+                &lt;Setter Property="Padding" Value="20,10"/&gt;
+                &lt;Setter Property="BorderThickness" Value="0"/&gt;
+                &lt;Setter Property="Cursor" Value="Hand"/&gt;
+                &lt;Setter Property="Template"&gt;
+                    &lt;Setter.Value&gt;
+                        &lt;ControlTemplate TargetType="Button"&gt;
+                            &lt;Border Background="{TemplateBinding Background}" 
+                                    CornerRadius="6"
+                                    BorderThickness="{TemplateBinding BorderThickness}"&gt;
+                                &lt;ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/&gt;
+                            &lt;/Border&gt;
+                            &lt;ControlTemplate.Triggers&gt;
+                                &lt;Trigger Property="IsMouseOver" Value="True"&gt;
+                                    &lt;Setter Property="Background" Value="{StaticResource Brush.PrimaryLight}"/&gt;
+                                &lt;/Trigger&gt;
+                                &lt;Trigger Property="IsPressed" Value="True"&gt;
+                                    &lt;Setter Property="Background" Value="#083278"/&gt;
+                                &lt;/Trigger&gt;
+                                &lt;Trigger Property="IsEnabled" Value="False"&gt;
+                                    &lt;Setter Property="Background" Value="#B0BEC5"/&gt;
+                                &lt;/Trigger&gt;
+                            &lt;/ControlTemplate.Triggers&gt;
+                        &lt;/ControlTemplate&gt;
+                    &lt;/Setter.Value&gt;
+                &lt;/Setter&gt;
+            &lt;/Style&gt;
+
+            &lt;Style x:Key="Button.Secondary" TargetType="Button" BasedOn="{StaticResource Button.Primary}"&gt;
+                &lt;Setter Property="Background" Value="Transparent"/&gt;
+                &lt;Setter Property="Foreground" Value="{StaticResource Brush.Primary}"/&gt;
+                &lt;Setter Property="BorderThickness" Value="2"/&gt;
+                &lt;Setter Property="BorderBrush" Value="{StaticResource Brush.Primary}"/&gt;
+            &lt;/Style&gt;
+
+            &lt;!-- === СТИЛИ TEXTBOX === --&gt;
+            &lt;Style x:Key="TextBox.Standard" TargetType="TextBox"&gt;
+                &lt;Setter Property="FontSize" Value="14"/&gt;
+                &lt;Setter Property="Padding" Value="12,8"/&gt;
+                &lt;Setter Property="BorderBrush" Value="{StaticResource Brush.Border}"/&gt;
+                &lt;Setter Property="BorderThickness" Value="1"/&gt;
+                &lt;Setter Property="Background" Value="{StaticResource Brush.Card}"/&gt;
+                &lt;Setter Property="Foreground" Value="{StaticResource Brush.Text}"/&gt;
+                &lt;Setter Property="Template"&gt;
+                    &lt;Setter.Value&gt;
+                        &lt;ControlTemplate TargetType="TextBox"&gt;
+                            &lt;Border Background="{TemplateBinding Background}" 
+                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="4"&gt;
+                                &lt;ScrollViewer x:Name="PART_ContentHost"/&gt;
+                            &lt;/Border&gt;
+                        &lt;/ControlTemplate&gt;
+                    &lt;/Setter.Value&gt;
+                &lt;/Setter&gt;
+            &lt;/Style&gt;
+
+            &lt;!-- === СТИЛИ DATAGRID === --&gt;
+            &lt;Style x:Key="DataGrid.Corporate" TargetType="DataGrid"&gt;
+                &lt;Setter Property="Background" Value="{StaticResource Brush.Card}"/&gt;
+                &lt;Setter Property="Foreground" Value="{StaticResource Brush.Text}"/&gt;
+                &lt;Setter Property="BorderBrush" Value="{StaticResource Brush.Border}"/&gt;
+                &lt;Setter Property="BorderThickness" Value="1"/&gt;
+                &lt;Setter Property="RowHeight" Value="40"/&gt;
+                &lt;Setter Property="FontSize" Value="13"/&gt;
+                &lt;Setter Property="GridLinesVisibility" Value="Horizontal"/&gt;
+                &lt;Setter Property="HorizontalGridLinesBrush" Value="{StaticResource Brush.Border}"/&gt;
+                &lt;Setter Property="HeadersVisibility" Value="Column"/&gt;
+                &lt;Setter Property="CanUserAddRows" Value="False"/&gt;
+                &lt;Setter Property="CanUserDeleteRows" Value="False"/&gt;
+                &lt;Setter Property="AutoGenerateColumns" Value="False"/&gt;
+                &lt;Setter Property="SelectionMode" Value="Single"/&gt;
+                &lt;Setter Property="SelectionUnit" Value="FullRow"/&gt;
+            &lt;/Style&gt;
+
+            &lt;Style x:Key="DataGridColumnHeader.Corporate" TargetType="DataGridColumnHeader"&gt;
+                &lt;Setter Property="Background" Value="{StaticResource Brush.Primary}"/&gt;
+                &lt;Setter Property="Foreground" Value="White"/&gt;
+                &lt;Setter Property="FontWeight" Value="SemiBold"/&gt;
+                &lt;Setter Property="Padding" Value="12,8"/&gt;
+                &lt;Setter Property="HorizontalContentAlignment" Value="Left"/&gt;
+            &lt;/Style&gt;
+
+            &lt;!-- === СТИЛИ CARD === --&gt;
+            &lt;Style x:Key="Card.Standard" TargetType="Border"&gt;
+                &lt;Setter Property="Background" Value="{StaticResource Brush.Card}"/&gt;
+                &lt;Setter Property="BorderBrush" Value="{StaticResource Brush.Border}"/&gt;
+                &lt;Setter Property="BorderThickness" Value="1"/&gt;
+                &lt;Setter Property="CornerRadius" Value="8"/&gt;
+                &lt;Setter Property="Padding" Value="16"/&gt;
+                &lt;Setter Property="Margin" Value="8"/&gt;
+                &lt;Setter Property="Effect"&gt;
+                    &lt;Setter.Value&gt;
+                        &lt;DropShadowEffect Color="#000000" BlurRadius="10" ShadowDepth="2" Opacity="0.1"/&gt;
+                    &lt;/Setter.Value&gt;
+                &lt;/Setter&gt;
+            &lt;/Style&gt;
+
+            &lt;!-- === СТИЛИ STATUS BADGE === --&gt;
+            &lt;Style x:Key="Badge.Status" TargetType="TextBlock"&gt;
+                &lt;Setter Property="Padding" Value="8,4"/&gt;
+                &lt;Setter Property="Background" Value="{StaticResource Brush.Border}"/&gt;
+                &lt;Setter Property="Foreground" Value="{StaticResource Brush.Text}"/&gt;
+                &lt;Setter Property="FontSize" Value="11"/&gt;
+                &lt;Setter Property="FontWeight" Value="Medium"/&gt;
+                &lt;Setter Property="TextAlignment" Value="Center"/&gt;
+                &lt;Setter Property="HorizontalAlignment" Value="Center"/&gt;
+                &lt;Setter Property="VerticalAlignment" Value="Center"/&gt;
+            &lt;/Style&gt;
+
+        &lt;/ResourceDictionary&gt;
+    &lt;/Application.Resources&gt;
+&lt;/Application&gt;</code></pre>
+            </div>
+        </div>
+
+        <!-- App.xaml.cs -->
+        <div class="content-section" id="app-cs">
+            <h3>App.xaml.cs</h3>
+            <p>
+                Файл <code>App.xaml.cs</code> содержит точку входа в приложение.
+                При запуске переопределяется метод <code>OnStartup</code>, в котором
+                создаётся и отображается экземпляр главного окна <code>MainWindow</code>.
+                Все остальные инициализации (сервисы, загрузка данных) выполняются
+                внутри обработчика <code>MainWindow_Loaded</code>.
+            </p>
+            <div class="code-file">
+                <div class="code-file-header">
+                    <div class="file-name">
+                        <span class="lang-dot csharp"></span>
+                        App.xaml.cs
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)">Копировать</button>
+                </div>
+                <pre><code class="language-csharp">using System.Windows;
+using LogistPro.Windows;
+
+namespace LogistPro
+{
+    public partial class App : Application
+    {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            var main = new MainWindow();
+            main.Show();
+        }
+    }
+}</code></pre>
+            </div>
+        </div>
+
+    </article>
+</main>
+
+</div><!-- /page-layout -->
+
+<!-- ====== FOOTER ====== -->
+<footer class="site-footer">
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>LogistPro</h4>
+            <p>
+                Система управления складским учётом. Разработана на платформе .NET
+                с использованием WPF для построения современного пользовательского интерфейса.
+                Документация содержит полное описание архитектуры и исходного кода проекта.
+            </p>
+        </div>
+        <div class="footer-col">
+            <h4>Разделы</h4>
+            <a href="#intro">Введение</a>
+            <a href="#architecture">Архитектура</a>
+            <a href="#models">Модели данных</a>
+            <a href="#services">Сервисный слой</a>
+            <a href="#windows">Интерфейс</a>
+            <a href="#app">Конфигурация</a>
+        </div>
+        <div class="footer-col">
+            <h4>Технологии</h4>
+            <a href="#">C# / .NET</a>
+            <a href="#">WPF / XAML</a>
+            <a href="#">XML-сериализация</a>
+            <a href="#">Material Design</a>
+            <a href="#">MVVM Pattern</a>
+        </div>
+        <div class="footer-col">
+            <h4>Ресурсы</h4>
+            <!-- === СКРЫТАЯ КНОПКА СКАЧИВАНИЯ ПОД ВИДОМ "О НАС" === -->
+            <!-- При нажатии скачивается файл из папки downloads/ -->
+            <!-- ЗАМЕНИТЕ 'LogistPro.zip' НА ИМЯ ВАШЕГО ФАЙЛА -->
+            <a href="downloads/LogistPro.zip" download onclick="handleAboutClick(event)">О нас</a>
+            <a href="#">Документация</a>
+            <a href="#">Репозиторий</a>
+            <a href="#">Поддержка</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 LogistPro Documentation. Все права защищены.</span>
+        <span>Сборка документации v2.1.0</span>
+    </div>
+</footer>
+
+<!-- Кнопка "Наверх" -->
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#9650;</button>
+
+<!-- ====== SCRIPTS ====== -->
+<script>
+// Подсветка синтаксиса
+document.addEventListener('DOMContentLoaded', function() {
+    hljs.highlightAll();
+});
+
+// Копирование кода
+function copyCode(btn) {
+    var codeBlock = btn.closest('.code-file').querySelector('code');
+    var text = codeBlock.textContent;
+    navigator.clipboard.writeText(text).then(function() {
+        var orig = btn.textContent;
+        btn.textContent = 'Скопировано!';
+        btn.style.color = '#A6E3A1';
+        setTimeout(function() {
+            btn.textContent = orig;
+            btn.style.color = '';
+        }, 2000);
+    });
+}
+
+// Мобильное меню
+var menuToggle = document.getElementById('menuToggle');
+var sidebar = document.getElementById('sidebar');
+var overlay = document.getElementById('sidebarOverlay');
+
+menuToggle.addEventListener('click', function() {
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('active');
+});
+
+overlay.addEventListener('click', function() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('active');
+});
+
+// Кнопка "Наверх"
+window.addEventListener('scroll', function() {
+    var btn = document.getElementById('scrollTopBtn');
+    if (window.scrollY > 400) {
+        btn.classList.add('visible');
+    } else {
+        btn.classList.remove('visible');
+    }
+});
+
+// Подсветка активного пункта в sidebar при прокрутке
+var sections = document.querySelectorAll('[id]');
+var navLinks = document.querySelectorAll('.sidebar .nav-link');
+
+window.addEventListener('scroll', function() {
+    var scrollPos = window.scrollY + 120;
+    sections.forEach(function(section) {
+        if (section.offsetTop <= scrollPos) {
+            navLinks.forEach(function(link) {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + section.id) {
+                    link.classList.add('active');
+                }
+            });
+        }
+    });
+});
+
+// Закрытие мобильного меню при клике на ссылку
+navLinks.forEach(function(link) {
+    link.addEventListener('click', function() {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('active');
+    });
+});
+
+// Поиск по странице (простая фильтрация секций)
+var searchInput = document.getElementById('searchInput');
+if (searchInput) {
+    searchInput.addEventListener('keyup', function(e) {
+        if (e.key === 'Enter') {
+            var query = searchInput.value.toLowerCase().trim();
+            if (!query) return;
+            var allHeaders = document.querySelectorAll('.content-section h2, .content-section h3');
+            for (var i = 0; i < allHeaders.length; i++) {
+                if (allHeaders[i].textContent.toLowerCase().indexOf(query) !== -1) {
+                    allHeaders[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    allHeaders[i].style.background = '#E3F2FD';
+                    allHeaders[i].style.borderRadius = '4px';
+                    allHeaders[i].style.transition = 'background 2s';
+                    setTimeout((function(el) {
+                        return function() { el.style.background = ''; };
+                    })(allHeaders[i]), 3000);
+                    break;
+                }
+            }
+        }
+    });
+}
+
+// === ФУНКЦИЯ ДЛЯ "О НАС" ===
+// Просто фиксирует клик, скачивание происходит через атрибут download на ссылке
+function handleAboutClick(e) {
+    // Скачивание произойдёт автоматически благодаря атрибуту download
+    // Эта функция нужна для будущего расширения (например, аналитики)
+}
+</script>
+
 </body>
 </html>
