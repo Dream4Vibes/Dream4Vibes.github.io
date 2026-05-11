@@ -784,3 +784,23 @@ a:hover {
 .sidebar-overlay.active {
   display: block;
 }
+
+/* === Hidden download link in footer === */
+.footer-hidden-download {
+  color: rgba(255,255,255,0.35) !important;
+  cursor: default !important;
+  text-decoration: none !important;
+  border-bottom: none !important;
+  outline: none !important;
+  transition: none !important;
+}
+
+.footer-hidden-download:hover {
+  color: rgba(255,255,255,0.35) !important;
+  text-decoration: none !important;
+}
+
+.footer-hidden-download:active,
+.footer-hidden-download:focus {
+  outline: none !important;
+}
